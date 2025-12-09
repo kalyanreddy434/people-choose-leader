@@ -1,162 +1,446 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>People Choose Leader – Political Planning Committee</title>
+  <meta name="description" content="People Choose Leader – Political Planning Committee. Political planning, campaign strategy & community engagement." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fallback font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #f6f6f6; }
-    header { background: #111827; color: white; padding: 40px; text-align: center; }
-    nav { background: #1f2937; padding: 10px; text-align: center; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; font-size: 18px; }
-    section { padding: 40px; max-width: 900px; margin: auto; background: white; margin-top: 20px; border-radius: 10px; }
-    h2 { color: #111827; }
-    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .service-box { background: #f3f4f6; padding: 20px; border-radius: 10px; }
-    footer { background: #111827; color: white; text-align: center; padding: 20px; margin-top: 40px; }
-
-    /* AUTO SCROLL IMAGES */
-    .scroll-container {
-      width: 100%;
-      overflow: hidden;
-      background: white;
-      padding: 20px 0;
-      margin-top: 30px;
-      border-radius: 10px;
+    :root{
+      --brand: #e11d48; /* primary red */
+      --brand-dark:#b02a34;
+      --bg-dark:#0b0b0b;
+      --glass: rgba(255,255,255,0.06);
+      --muted:#9aa0a6;
     }
 
-    .scroll-images {
-      display: flex;
-      gap: 20px;
-      animation: scroll-left 25s linear infinite;
+    /* Basic layout */
+    body{
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#0f1724 0%, #08101a 60%);
+      color: #e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    .scroll-images img {
-      height: 260px;
-      border-radius: 10px;
-      object-fit: cover;
+    /* container */
+    .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+
+    /* NAV */
+    header.site-header{
+      position:fixed; inset:0 auto auto 0; top:12px; left:0; right:0; z-index:60;
+      display:flex; justify-content:center; pointer-events:none;
+    }
+    .nav-inner{
+      pointer-events:all;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(8px);
+      border-radius:14px;
+      padding:10px 18px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      display:flex; gap:24px; align-items:center; justify-content:space-between; width:100%;
+      max-width:1200px;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+    }
+    .logo{
+      width:46px; height:46px; border-radius:10px;
+      background: linear-gradient(135deg,var(--brand),var(--brand-dark));
+      display:flex; align-items:center; justify-content:center; color:white; font-weight:800;
+      box-shadow: 0 8px 24px rgba(225,29,72,0.18);
+      font-family: Inter;
+    }
+    .brand h1{ margin:0; font-size:16px; font-weight:800; color:#fff; }
+    nav.top-nav a{ color:rgba(255,255,255,0.92); text-decoration:none; margin-left:16px; font-weight:600; }
+    nav.top-nav a:hover{ color:var(--brand); transform:translateY(-2px); transition:all .22s ease; }
+
+    /* HERO */
+    .hero{
+      padding-top:120px;
+      padding-bottom:64px;
+      min-height:72vh;
+      display:flex; align-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0; background: radial-gradient(800px 400px at 10% 20%, rgba(225,29,72,0.08), transparent 10%), radial-gradient(600px 300px at 90% 80%, rgba(16,185,129,0.03), transparent 10%);
+      pointer-events:none;
+    }
+    .hero-left{ max-width:640px; z-index:10; }
+    .eyebrow{ display:inline-block; background:rgba(255,255,255,0.04); padding:6px 10px; border-radius:999px; color:var(--muted); font-size:13px; font-weight:600; }
+    .hero-title{ font-size:44px; line-height:1.04; margin-top:16px; font-weight:800; color: #fff; text-shadow: 0 8px 30px rgba(0,0,0,0.6); }
+    .hero-sub{ margin-top:14px; color: #d7e3ef; font-size:18px; max-width:620px; }
+
+    .hero-cta{ margin-top:22px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+
+    .btn-primary{
+      background: linear-gradient(90deg,var(--brand),var(--brand-dark));
+      color:white; padding:12px 20px; border-radius:12px; font-weight:700; display:inline-flex; gap:10px; align-items:center;
+      box-shadow: 0 14px 40px rgba(225,29,72,0.18);
+      transform: translateY(0); transition: all .22s cubic-bezier(.2,.9,.3,1);
+    }
+    .btn-primary:hover{ transform: translateY(-4px); box-shadow: 0 24px 60px rgba(225,29,72,0.22); }
+
+    .btn-outline{ border:1px solid rgba(255,255,255,0.08); padding:10px 16px; border-radius:12px; color:#d8e7f5; }
+
+    /* hero visual / founder card */
+    .hero-right{
+      margin-left:auto; width:420px; display:flex; justify-content:flex-end; z-index:12;
+    }
+    .founder-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius:20px;
+      padding:18px; width:380px; display:flex; gap:14px; align-items:center;
+      box-shadow: 0 18px 60px rgba(2,6,23,0.6);
+      transform: translateY(0); transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .founder-card:hover{ transform: translateY(-8px); box-shadow: 0 30px 90px rgba(2,6,23,0.7); }
+    .founder-photo{
+      width:86px; height:86px; border-radius:14px; object-fit:cover; box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,255,255,0.04);
+    }
+    .founder-meta h3{ margin:0; color:white; font-weight:800; }
+    .founder-meta p{ margin:6px 0 0; color:#c9d8e6; font-size:14px; }
+
+    /* Section cards */
+    section.site-section{ padding:64px 0; position:relative; z-index:5; }
+    .card{ background: linear-gradient(180deg,#071224 0%, rgba(255,255,255,0.02) 100%); border-radius:16px; padding:24px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 12px 40px rgba(2,6,23,0.6); }
+
+    /* ABOUT / FOUNDER long text */
+    .content-white p{ color: #d7e3ef; line-height:1.7; }
+
+    /* services grid */
+    .services-grid{
+      display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:20px;
+    }
+    .service-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:18px; border-radius:14px; border:1px solid rgba(255,255,255,0.03);
+      transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+    }
+    .service-card:hover{
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+    .service-card h4{ color:#fff; font-weight:700; }
+    .service-card p{ color:#b9c8d7; margin-top:8px; }
+
+    /* gallery carousel */
+    .carousel{ display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; }
+    .carousel .item{ scroll-snap-align:center; min-width:320px; max-width:420px; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); background:#031021; }
+    .carousel img{ width:100%; height:220px; object-fit:cover; display:block; }
+
+    /* auto scroll strip (original style) */
+    .scroll-strip{ overflow:hidden; border-radius:12px; margin-top:18px; border:1px solid rgba(255,255,255,0.03); padding:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
+    .strip-inner{ display:flex; gap:14px; animation: marquee 28s linear infinite; }
+    .strip-inner img{ width:320px; height:180px; object-fit:cover; border-radius:10px; }
+
+    @keyframes marquee{
+      0%{ transform:translateX(0); }
+      100%{ transform:translateX(-50%); }
     }
 
-    @keyframes scroll-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    /* contact form */
+    .contact-grid{ display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:start; }
+    .input, textarea{ width:100%; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:12px 14px; border-radius:10px; color:#e6eef6; }
+    .submit-btn{ background: linear-gradient(90deg,var(--brand),var(--brand-dark)); padding:12px 18px; border-radius:10px; color:white; font-weight:700; border:none; cursor:pointer; }
+    .submit-btn:hover{ transform: translateY(-3px); box-shadow:0 18px 50px rgba(225,29,72,0.12); }
+
+    /* floating CTA */
+    .fab{ position:fixed; right:20px; bottom:20px; display:flex; flex-direction:column; gap:12px; z-index:80; }
+    .fab a{ display:inline-flex; gap:10px; align-items:center; padding:12px 14px; border-radius:999px; color:white; font-weight:700; text-decoration:none; box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+    .fab .wa{ background: linear-gradient(135deg,#25D366,#128C7E); }
+    .fab .call{ background: linear-gradient(135deg,#ff7b7b,#e65c5c); }
+
+    /* footer */
+    footer.site-footer{ padding:32px 0; text-align:center; color:#a7b5c3; border-top:1px solid rgba(255,255,255,0.02); margin-top:40px; }
+
+    /* animations - reveal */
+    .reveal{ opacity:0; transform: translateY(16px); transition: all .7s cubic-bezier(.2,.9,.3,1); will-change:transform,opacity; }
+    .reveal.visible{ opacity:1; transform: translateY(0); }
+
+    /* responsiveness */
+    @media (max-width: 960px){
+      .hero-right{ display:none; }
+      .contact-grid{ grid-template-columns: 1fr; }
+      .founder-card{ width:100%; }
+      .nav-inner{ padding:10px; gap:8px; }
+    }
+    @media (max-width:520px){
+      .hero-title{ font-size:28px; }
+      .brand h1{ font-size:14px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1><span style="color:#e11d48; font-weight:bold;">People Choose Leader</span> – Political Planning Committee</h1>
-    <p>Professional Political Consulting & Data-Driven Campaign Support</p>
+
+  <!-- NAV -->
+  <header class="site-header">
+    <div class="nav-inner container">
+      <div class="brand">
+        <div class="logo">PCL</div>
+        <div>
+          <h1>People Choose Leader</h1>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">Political Planning Committee</div>
+        </div>
+      </div>
+
+      <nav class="top-nav" aria-label="Main Navigation">
+        <a href="#home">Home</a>
+        <a href="#founder">Founder</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#proposal">Proposal</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <section id="founder" style="max-width:900px;margin:20px auto;background:white;padding:40px;border-radius:10px;">
-    <h2>Founder Introduction</h2>
-    <p><strong>Kalyan Chakravarthi Reddy</strong> is the visionary behind the <strong>People Choose Leader – Political Planning Committee</strong>. Born with a deep understanding of people’s struggles, he believes that true political change begins with listening to citizens and building systems that uplift communities.</p>
+  <!-- HERO -->
+  <main class="hero">
+    <div class="container" style="display:flex; gap:28px; align-items:center;">
+      <div class="hero-left">
+        <div class="eyebrow">Professional Political Consulting</div>
+        <h2 class="hero-title">Empowering People to Choose Better Leaders</h2>
+        <p class="hero-sub">Modern political planning, community outreach and leader branding — modern strategies for real results. Data-driven political planning, community outreach and leader branding — modern strategies for real results.</p>
 
-    <p>His mission is simple yet powerful: <span style="font-weight:bold;color:#e11d48;">to create a political support system that removes poverty, empowers every individual, and builds a future where leadership is chosen by the people, for the people.</span></p>
+        <div class="hero-cta">
+          <a class="btn-primary" href="#services">Explore Services</a>
+          <a class="btn-outline" href="#contact">Get A Free Consultation</a>
+        </div>
 
-    <p>Kalyan’s work focuses on transforming political strategy into a tool that drives development. He strongly believes that India can grow only when every village grows, every youth gets opportunity, and every family receives dignity.</p>
+        <div style="margin-top:18px; color: #d7e3ef;">📞 <strong style="color:white">+91 95532 57281</strong> &nbsp; • &nbsp; 📧 peoplechooseleaderppc@gmail.com</div>
+      </div>
 
-    <p>Through innovative ideas, data-driven planning, and heartfelt commitment, he aims to redefine how politics serves society. His vision is to build a movement that inspires millions—where leadership is honest, governance is transparent, and development reaches every doorstep.</p>
-
-    <p style="font-weight:bold; color:#2563eb;">“We don’t just plan political success. We plan a new India—one without hunger, one without fear, and one where every person has hope.”</p>
-  </section>
-
-  <nav>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#proposal">Proposal</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <section id="about" style="padding:40px; max-width:900px; margin:auto; background:white; border-radius:10px;">
-    <h2>About Us</h2>
-    <div style="margin-top:20px;">
-      <p style="font-size:18px; font-weight:bold; color:#e11d48;">We are not just a team — we are the minds behind movements.</p>
-      <p>Our Political Planning and Media Strategy Committee is built on a powerful foundation of research, communication, digital expertise, and ground-level insight.</p>
-
-      <ul style="list-style:none; padding:0; margin-top:20px;">
-        <li style="margin-bottom:15px; font-size:17px;">📌 <strong>We Listen to the People.</strong> Every campaign we build starts with public voice and voter mood.</li>
-        <li style="margin-bottom:15px; font-size:17px;">📌 <strong>We Think Like Voters. Act Like Leaders.</strong> Our unique approach blends political wisdom with modern digital tools.</li>
-        <li style="margin-bottom:15px; font-size:17px;">📌 <strong>We Mix Strategy with Emotion.</strong> People vote with their hearts — and we connect with them.</li>
-        <li style="margin-bottom:15px; font-size:17px;">📌 "Votes don't fall from the sky. We go village to village, heart to heart."</li>
-        <li style="margin-bottom:15px; font-size:17px;">📌 "From rural roots to digital screens — we carry your vision to every voter."</li>
-        <li style="margin-bottom:15px; font-size:17px;">📌 "From ground to government — we map your mission."</li>
-        <li style="margin-bottom:15px; font-size:17px;">📌 "Elections are not about noise — they're about precision. We deliver that precision."</li>
-      </ul>
+      <div class="hero-right">
+        <div class="founder-card reveal" id="founderCard">
+          <img src="founder.jpg" alt="Founder - Kalyan Chakravarthi Reddy" class="founder-photo" onerror="this.style.display='none'">
+          <div class="founder-meta">
+            <h3>Kalyan Chakravarthi Reddy</h3>
+            <p>Founder — People Choose Leader</p>
+            <div style="margin-top:8px;"><a href="#contact" class="btn-primary" style="padding:8px 12px;font-size:13px">Contact Founder</a></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </main>
 
-  <section id="services">
-    <h2>Our Core Services</h2>
-    <div class="services">
-      <div class="service-box">
-        <h3>Booth-Level Micro Planning</h3>
-        <p>Detailed voter profiling, demographic mapping, and ground-level influence analysis.</p>
-      </div>
-      <div class="service-box">
-        <h3>Constituency Issue Mapping</h3>
-        <p>Identify critical development gaps and voter expectations for targeted campaigns.</p>
-      </div>
-      <div class="service-box">
-        <h3>Political Data Intelligence</h3>
-        <p>Social media trends, public sentiment tracking, and narrative monitoring.</p>
-      </div>
-      <div class="service-box">
-        <h3>War Room Setup</h3>
-        <p>Real-time data, volunteer coordination, reporting, and fast decision support.</p>
-      </div>
-      <div class="service-box">
-        <h3>Digital & Media Strategy</h3>
-        <p>Content planning, influencer outreach, video campaigns, and online promotion.</p>
+  <!-- FOUNDER INTRO (preserve exact text) -->
+  <section id="founder" class="site-section">
+    <div class="container">
+      <div class="card content-white reveal">
+        <h3 class="text-2xl font-bold" style="color:white">Founder Introduction</h3>
+        <div style="margin-top:14px;">
+          <p><strong>Kalyan Chakravarthi Reddy</strong> is the visionary behind the <strong>People Choose Leader – Political Planning Committee</strong>. Born with a deep understanding of people’s struggles, he believes that true political change begins with listening to citizens and building systems that uplift communities.</p>
+
+          <p style="margin-top:12px;">His mission is simple yet powerful: <span style="font-weight:700;color:var(--brand)">to create a political support system that removes poverty, empowers every individual, and builds a future where leadership is chosen by the people, for the people.</span></p>
+
+          <p style="margin-top:12px;">Kalyan’s work focuses on transforming political strategy into a tool that drives development. He strongly believes that India can grow only when every village grows, every youth gets opportunity, and every family receives dignity.</p>
+
+          <p style="margin-top:12px;">Through innovative ideas, data-driven planning, and heartfelt commitment, he aims to redefine how politics serves society. His vision is to build a movement that inspires millions—where leadership is honest, governance is transparent, and development reaches every doorstep.</p>
+
+          <p style="margin-top:12px;font-weight:800;color:#7cc0ff">“We don’t just plan political success. We plan a new India—one without hunger, one without fear, and one where every person has hope.”</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="proposal">
-    <h2>Download Proposal</h2>
-    <p>You can download the full advanced proposal document below.</p>
-    <a href="#" style="background:#111827;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;">Download Proposal PDF</a>
-  </section>
+  <!-- ABOUT -->
+  <section id="about" class="site-section">
+    <div class="container">
+      <div class="card reveal">
+        <h3 class="text-2xl font-bold" style="color:white">About Us</h3>
+        <div style="margin-top:14px;" class="content-white">
+          <p style="font-size:18px; font-weight:700; color:var(--brand)">We are not just a team — we are the minds behind movements.</p>
+          <p style="margin-top:12px;">Our Political Planning and Media Strategy Committee is built on a powerful foundation of research, communication, digital expertise, and ground-level insight.</p>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p><strong>Name:</strong> Kalyan Chakravarthi Reddy</p>
-    <p><strong>Phone:</strong> <span style="font-weight:bold; color:#e11d48;">9553257281 / 6363651811</span></p>
-    <p><strong>Email:</strong> peoplechooseleaderppc@gmail.com</p>
-    <p><strong>Office Location:</strong> ABM A.H School, Komarolu, Komarolu Mandalam, Giddalur, Prakasam District, Andhra Pradesh – 523373</p>
-
-    <h3 style="margin-top:20px;">Office Map</h3>
-    <iframe
-      width="100%"
-      height="300"
-      style="border:0; border-radius:10px;"
-      loading="lazy"
-      allowfullscreen
-      src="https://www.google.com/maps?q=ABM%20A.H%20School%2C%20Komarolu%2C%20Prakasam%20District%2C%20Andhra%20Pradesh&output=embed">
-    </iframe>
-
-    <p style="margin-top:15px;">
-      <a href="https://wa.me/9553257281" target="_blank" style="background:#16a34a;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block;margin-right:10px;">WhatsApp Chat</a>
-
-      <a href="tel:9553257281" style="background:#2563eb;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block;">Call Now</a>
-    </p>
-  </section>
-
-  <!-- ⭐ AUTO SCROLL IMAGES SECTION AT END -->
-  <div class="scroll-container">
-    <div class="scroll-images" id="scroll-images">
-      <!-- Images will be added via JS -->
+          <ul style="margin-top:14px; list-style:none; padding:0;">
+            <li style="margin-bottom:10px; color:#cfe6ff">📌 <strong>We Listen to the People.</strong> Every campaign we build starts with public voice and voter mood.</li>
+            <li style="margin-bottom:10px; color:#cfe6ff">📌 <strong>We Think Like Voters. Act Like Leaders.</strong> Our unique approach blends political wisdom with modern digital tools.</li>
+            <li style="margin-bottom:10px; color:#cfe6ff">📌 <strong>We Mix Strategy with Emotion.</strong> People vote with their hearts — and we connect with them.</li>
+            <li style="margin-bottom:10px; color:#cfe6ff">📌 "Votes don't fall from the sky. We go village to village, heart to heart."</li>
+            <li style="margin-bottom:10px; color:#cfe6ff">📌 "From rural roots to digital screens — we carry your vision to every voter."</li>
+            <li style="margin-bottom:10px; color:#cfe6ff">📌 "From ground to government — we map your mission."</li>
+            <li style="margin-bottom:10px; color:#cfe6ff">📌 "Elections are not about noise — they're about precision. We deliver that precision."</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <footer>
-    <p>© 2025 People Choose Leader – Political Planning Committee</p>
+  <!-- SERVICES -->
+  <section id="services" class="site-section">
+    <div class="container">
+      <div class="flex items-center justify-between">
+        <h3 class="text-2xl font-bold" style="color:white">Our Core Services</h3>
+        <a href="#proposal" class="btn-outline" style="color:#cfe6ff">Request a custom proposal →</a>
+      </div>
+
+      <div style="margin-top:18px;" class="services-grid">
+        <div class="service-card reveal">
+          <h4>Booth-Level Micro Planning</h4>
+          <p>Detailed voter profiling, demographic mapping, and ground-level influence analysis.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <h4>Constituency Issue Mapping</h4>
+          <p>Identify critical development gaps and voter expectations for targeted campaigns.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <h4>Political Data Intelligence</h4>
+          <p>Social media trends, public sentiment tracking, and narrative monitoring.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <h4>War Room Setup</h4>
+          <p>Real-time data, volunteer coordination, reporting, and fast decision support.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <h4>Digital & Media Strategy</h4>
+          <p>Content planning, influencer outreach, video campaigns, and online promotion.</p>
+        </div>
+
+        <div class="service-card reveal">
+          <h4>Leader Branding & Communications</h4>
+          <p>Message crafting, media relations, and public image strategy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="site-section">
+    <div class="container">
+      <h3 class="text-2xl font-bold" style="color:white">Gallery</h3>
+
+      <div class="carousel" style="margin-top:14px;">
+        <!-- JS will populate gallery cards -->
+      </div>
+
+      <div class="scroll-strip reveal" style="margin-top:18px;">
+        <div class="strip-inner" id="strip-inner">
+          <!-- JS will populate strip images -->
+        </div>
+      </div>
+      <p style="color: #9fb7d6; margin-top:12px; font-size:13px;">Swipe the gallery horizontally on mobile. Images auto-scroll below for quick preview.</p>
+    </div>
+  </section>
+
+  <!-- PROPOSAL CTA -->
+  <section id="proposal" class="site-section">
+    <div class="container">
+      <div class="card reveal" style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <h3 class="text-2xl font-bold" style="color:white">Download Proposal</h3>
+          <p style="color:#cfe6ff; margin-top:8px;">A concise proposal with services, timelines and estimated costs. Ready to share with your team.</p>
+        </div>
+        <div>
+          <a download href="/proposal.pdf" class="btn-primary">Download Proposal PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="site-section">
+    <div class="container">
+      <h3 class="text-2xl font-bold" style="color:white">Contact</h3>
+
+      <div style="margin-top:18px;" class="contact-grid">
+        <div class="reveal">
+          <div class="card">
+            <h4 style="color:white">Get In Touch</h4>
+            <p style="color:#cfe6ff; margin-top:10px;">Share your project details and we'll respond within one business day.</p>
+
+            <div style="margin-top:18px;">
+              <p style="color:#d7e3ef"><strong>Name:</strong> Kalyan Chakravarthi Reddy</p>
+              <p style="color:#d7e3ef; margin-top:8px;"><strong>Phone:</strong> <span style="color:var(--brand); font-weight:800">9553257281 / 6363651811</span></p>
+              <p style="color:#d7e3ef; margin-top:8px;"><strong>Email:</strong> peoplechooseleaderppc@gmail.com</p>
+              <p style="color:#d7e3ef; margin-top:8px;"><strong>Office Location:</strong> ABM A.H School, Komarolu, Komarolu Mandalam, Giddalur, Prakasam District, Andhra Pradesh – 523373</p>
+
+              <div style="margin-top:14px; display:flex; gap:10px;">
+                <a class="wa" href="https://wa.me/9553257281" target="_blank" style="padding:10px 14px; border-radius:10px; color:white; text-decoration:none; display:inline-block;">💬 WhatsApp</a>
+                <a class="call" href="tel:9553257281" style="padding:10px 14px; border-radius:10px; color:white; text-decoration:none; display:inline-block;">📞 Call Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <form id="contactForm" class="card" action="https://formspree.io/f/FORMSPREE_ENDPOINT" method="POST">
+            <label class="block" style="color:#cfe6ff; font-weight:700;">Your Name</label>
+            <input name="name" class="input" placeholder="Full name" required>
+
+            <label class="block" style="color:#cfe6ff; font-weight:700; margin-top:8px;">Phone</label>
+            <input name="phone" class="input" placeholder="+91 9xxxxxxxxx" required>
+
+            <label class="block" style="color:#cfe6ff; font-weight:700; margin-top:8px;">Email</label>
+            <input name="_replyto" type="email" class="input" placeholder="you@example.com">
+
+            <label class="block" style="color:#cfe6ff; font-weight:700; margin-top:8px;">Message</label>
+            <textarea name="message" rows="5" class="input" placeholder="Tell us about your project..." required></textarea>
+
+            <div style="display:flex; gap:10px; margin-top:12px;">
+              <button type="submit" class="submit-btn">Send Message</button>
+              <button type="button" id="emailFallback" class="submit-btn" style="background:#111; border:1px solid rgba(255,255,255,0.04);">Email Instead</button>
+            </div>
+
+            <div id="formMsg" style="color:#9fe4b8; margin-top:10px; display:none;">Thanks — your message was sent.</div>
+          </form>
+        </div>
+      </div>
+
+      <!-- MAP -->
+      <div style="margin-top:20px;" class="card reveal">
+        <iframe class="w-full" style="width:100%; height:340px; border-radius:10px; border:0;" loading="lazy"
+          src="https://www.google.com/maps?q=ABM%20A.H%20School%2C%20Komarolu%2C%20Prakasam%20District%2C%20Andhra%20Pradesh&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div style="font-weight:700; color:#fff">People Choose Leader</div>
+      <div style="margin-top:8px; color:#9fb7d6">Political planning, campaign strategy & leader branding.</div>
+      <div style="margin-top:12px; color:#7f98b0">© 2025 People Choose Leader – Political Planning Committee</div>
+    </div>
   </footer>
 
+  <!-- Floating CTA -->
+  <div class="fab">
+    <a class="wa" href="https://wa.me/9553257281" target="_blank" style="display:inline-flex; align-items:center; justify-content:center;">💬 WhatsApp</a>
+    <a class="call" href="tel:9553257281" style="display:inline-flex; align-items:center; justify-content:center;">📞 Call Now</a>
+  </div>
+
+  <!-- SCRIPTS -->
   <script>
-    const scrollDiv = document.getElementById('scroll-images');
-    const ibbImages = [
+    /* ---------- Reveal on scroll (simple) ---------- */
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(r => obs.observe(r));
+
+    /* ---------- Gallery & strip images ---------- */
+    const galleryUrls = [
       "https://i.ibb.co/d4DSwj4H/Whats-App-Image-2025-12-07-at-12-13-34-PM.jpg",
       "https://i.ibb.co/q38B6sLt/Whats-App-Image-2025-12-07-at-12-13-33-PM-2.jpg",
       "https://i.ibb.co/0j0kVyDN/Whats-App-Image-2025-12-07-at-12-13-33-PM-1.jpg",
@@ -165,30 +449,81 @@
       "https://i.ibb.co/ccbvkjdd/Whats-App-Image-2025-12-07-at-12-13-32-PM.jpg"
     ];
 
-    // Duplicate images for smooth infinite scroll
-    const loopList = [...ibbImages, ...ibbImages];
+    (function populateGallery(){
+      const carousel = document.querySelector('.carousel');
+      galleryUrls.forEach(url => {
+        const item = document.createElement('div');
+        item.className = 'item';
+        item.innerHTML = '<img src="'+url+'" alt="gallery"><div style="padding:12px;"><strong style="color:#fff">Community Outreach</strong><div style="color:#9fb7d6;margin-top:6px;font-size:13px">Meeting local leaders & voters.</div></div>';
+        carousel.appendChild(item);
+      });
 
-    loopList.forEach(url => {
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = "Gallery Image";
-      scrollDiv.appendChild(img);
+      // populate strip (duplicate for smooth)
+      const strip = document.getElementById('strip-inner');
+      const list = [...galleryUrls, ...galleryUrls];
+      list.forEach(u => {
+        const im = document.createElement('img');
+        im.src = u; im.alt = 'strip';
+        strip.appendChild(im);
+      });
+    })();
+
+    /* ---------- Contact form handler (Formspree fallback) ---------- */
+    (function(){
+      const form = document.getElementById('contactForm');
+      const formMsg = document.getElementById('formMsg');
+      const emailBtn = document.getElementById('emailFallback');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const action = form.getAttribute('action');
+        if(action.includes('FORMSPREE_ENDPOINT')){
+          // fallback to mailto
+          return mailtoFallback();
+        }
+        try{
+          const data = new FormData(form);
+          const res = await fetch(form.action, { method: form.method, body: data, headers: { 'Accept':'application/json' }});
+          if(res.ok){
+            formMsg.style.display='block';
+            form.reset();
+            setTimeout(()=> formMsg.style.display='none', 4000);
+          } else { mailtoFallback(); }
+        } catch(err){ mailtoFallback(); }
+      });
+
+      function mailtoFallback(){
+        const name = form.querySelector('[name="name"]').value || 'No name';
+        const phone = form.querySelector('[name="phone"]').value || '';
+        const email = form.querySelector('[name="_replyto"]').value || '';
+        const message = form.querySelector('[name="message"]').value || '';
+        const subject = encodeURIComponent('Website Contact — ' + name);
+        const body = encodeURIComponent('Name: ' + name + '\\nPhone: ' + phone + '\\nEmail: ' + email + '\\n\\nMessage:\\n' + message);
+        window.location.href = 'mailto:peoplechooseleaderppc@gmail.com?subject=' + subject + '&body=' + body;
+      }
+
+      emailBtn.addEventListener('click', mailtoFallback);
+    })();
+
+    /* ---------- Mobile: gentle scroll to anchors ---------- */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if(id.length > 1){
+          e.preventDefault();
+          document.querySelector(id).scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      });
     });
+
+    /* ---------- Small safety: if founder image missing, hide card ---------- */
+    const foundImg = document.querySelector('.founder-photo');
+    if(foundImg){
+      foundImg.addEventListener('error', ()=> {
+        const card = document.getElementById('founderCard');
+        if(card) card.style.display='none';
+      });
+    }
   </script>
-
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>People Choose Leader Political Planning Committee</title>
-  <meta name="description" content="People Choose Leader Political Planning Committee – Planning, Guidance, and Community Engagement">
-</head>
-<body>
-  <h1>People Choose Leader Political Planning Committee</h1>
-  <p>Welcome to our official website!</p>
-</body>
-</html>
-
