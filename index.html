@@ -1,572 +1,845 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>People Choose Leader – Political Planning Committee</title>
-  <meta name="description" content="People Choose Leader – Political Planning Committee. Political planning, campaign strategy & community engagement." />
+  <meta name="description" content="People Choose Leader – Political Planning Committee. Next-generation political planning, AI campaign strategy & community engagement." />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Fallback font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#e11d48',
+              hover: '#f43f5e',
+              glow: '#ff2a55',
+              dark: '#9f1239',
+              light: 'rgba(225, 29, 72, 0.15)',
+            },
+            dark: {
+              base: '#030508',
+              surface: '#090d16',
+              card: 'rgba(13, 19, 32, 0.65)',
+              border: 'rgba(255, 255, 255, 0.08)',
+            }
+          },
+          animation: {
+            'aurora': 'aurora 20s linear infinite',
+            'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'scanline': 'scanline 8s linear infinite',
+          },
+          keyframes: {
+            aurora: {
+              '0%, 100%': { transform: 'rotate(0deg) scale(1)' },
+              '50%': { transform: 'rotate(180deg) scale(1.2)' },
+            },
+            'pulse-glow': {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            scanline: {
+              '0%': { transform: 'translateY(-100%)' },
+              '100%': { transform: 'translateY(1000%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    :root{
-      --brand: #e11d48; /* primary red */
-      --brand-dark:#b02a34;
-      --bg-dark:#0b0b0b;
-      --glass: rgba(255,255,255,0.06);
-      --muted:#9aa0a6;
+    body {
+      background-color: #030508;
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* 2026 Spatial Glassmorphism */
+    .glass-nav {
+      background: rgba(9, 13, 22, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     }
 
-    /* Basic layout */
-    body{
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#0f1724 0%, #08101a 60%);
-      color: #e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
     }
 
-    /* container */
-    .container { max-width:1200px; margin:0 auto; padding:0 20px; }
-
-    /* NAV */
-    header.site-header{
-      position:fixed; inset:0 auto auto 0; top:12px; left:0; right:0; z-index:60;
-      display:flex; justify-content:center; pointer-events:none;
-    }
-    .nav-inner{
-      pointer-events:all;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.04);
-      backdrop-filter: blur(8px);
-      border-radius:14px;
-      padding:10px 18px;
-      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
-      display:flex; gap:24px; align-items:center; justify-content:space-between; width:100%;
-      max-width:1200px;
-    }
-    .brand{
-      display:flex; gap:12px; align-items:center;
-    }
-    .logo{
-      width:46px; height:46px; border-radius:10px;
-      background: linear-gradient(135deg,var(--brand),var(--brand-dark));
-      display:flex; align-items:center; justify-content:center; color:white; font-weight:800;
-      box-shadow: 0 8px 24px rgba(225,29,72,0.18);
-      font-family: Inter;
-    }
-    .brand h1{ margin:0; font-size:16px; font-weight:800; color:#fff; }
-    nav.top-nav a{ color:rgba(255,255,255,0.92); text-decoration:none; margin-left:16px; font-weight:600; }
-    nav.top-nav a:hover{ color:var(--brand); transform:translateY(-2px); transition:all .22s ease; }
-
-    /* HERO */
-    .hero{
-      padding-top:120px;
-      padding-bottom:64px;
-      min-height:72vh;
-      display:flex; align-items:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero::after{
-      content:"";
-      position:absolute; inset:0; background: radial-gradient(800px 400px at 10% 20%, rgba(225,29,72,0.08), transparent 10%), radial-gradient(600px 300px at 90% 80%, rgba(16,185,129,0.03), transparent 10%);
-      pointer-events:none;
-    }
-    .hero-left{ max-width:640px; z-index:10; }
-    .eyebrow{ display:inline-block; background:rgba(255,255,255,0.04); padding:6px 10px; border-radius:999px; color:var(--muted); font-size:13px; font-weight:600; }
-    .hero-title{ font-size:44px; line-height:1.04; margin-top:16px; font-weight:800; color: #fff; text-shadow: 0 8px 30px rgba(0,0,0,0.6); }
-    .hero-sub{ margin-top:14px; color: #d7e3ef; font-size:18px; max-width:620px; }
-
-    .hero-cta{ margin-top:22px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
-
-    .btn-primary{
-      background: linear-gradient(90deg,var(--brand),var(--brand-dark));
-      color:white; padding:12px 20px; border-radius:12px; font-weight:700; display:inline-flex; gap:10px; align-items:center;
-      box-shadow: 0 14px 40px rgba(225,29,72,0.18);
-      transform: translateY(0); transition: all .22s cubic-bezier(.2,.9,.3,1);
-    }
-    .btn-primary:hover{ transform: translateY(-4px); box-shadow: 0 24px 60px rgba(225,29,72,0.22); }
-
-    .btn-outline{ border:1px solid rgba(255,255,255,0.08); padding:10px 16px; border-radius:12px; color:#d8e7f5; }
-
-    /* hero visual / founder card */
-    .hero-right{
-      margin-left:auto; width:420px; display:flex; justify-content:flex-end; z-index:12;
-    }
-    .founder-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius:20px;
-      padding:18px; width:380px; display:flex; gap:14px; align-items:center;
-      box-shadow: 0 18px 60px rgba(2,6,23,0.6);
-      transform: translateY(0); transition: transform .3s ease, box-shadow .3s ease;
-    }
-    .founder-card:hover{ transform: translateY(-8px); box-shadow: 0 30px 90px rgba(2,6,23,0.7); }
-    .founder-photo{
-      width:86px; height:86px; border-radius:14px; object-fit:cover; box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      border: 2px solid rgba(255,255,255,0.04);
-    }
-    .founder-meta h3{ margin:0; color:white; font-weight:800; }
-    .founder-meta p{ margin:6px 0 0; color:#c9d8e6; font-size:14px; }
-
-    /* Section cards */
-    section.site-section{ padding:64px 0; position:relative; z-index:5; }
-    .card{ background: linear-gradient(180deg,#071224 0%, rgba(255,255,255,0.02) 100%); border-radius:16px; padding:24px; border:1px solid rgba(255,255,255,0.04); box-shadow: 0 12px 40px rgba(2,6,23,0.6); }
-
-    /* ABOUT / FOUNDER long text */
-    .content-white p{ color: #d7e3ef; line-height:1.7; }
-
-    /* services grid */
-    .services-grid{
-      display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:20px;
-    }
-    .service-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:18px; border-radius:14px; border:1px solid rgba(255,255,255,0.03);
-      transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
-    }
-    .service-card:hover{
-      transform: translateY(-10px);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-    }
-    .service-card h4{ color:#fff; font-weight:700; }
-    .service-card p{ color:#b9c8d7; margin-top:8px; }
-
-    /* gallery carousel */
-    .carousel{ display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; }
-    .carousel .item{ scroll-snap-align:center; min-width:320px; max-width:420px; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.04); background:#031021; }
-    .carousel img{ width:100%; height:220px; object-fit:cover; display:block; }
-
-    /* auto scroll strip (original style) */
-    .scroll-strip{ overflow:hidden; border-radius:12px; margin-top:18px; border:1px solid rgba(255,255,255,0.03); padding:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
-    .strip-inner{ display:flex; gap:14px; animation: marquee 28s linear infinite; }
-    .strip-inner img{ width:320px; height:180px; object-fit:cover; border-radius:10px; }
-
-    @keyframes marquee{
-      0%{ transform:translateX(0); }
-      100%{ transform:translateX(-50%); }
+    .glass-card-interactive {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* contact form */
-    .contact-grid{ display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:start; }
-    .input, textarea{ width:100%; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:12px 14px; border-radius:10px; color:#e6eef6; }
-    .submit-btn{ background: linear-gradient(90deg,var(--brand),var(--brand-dark)); padding:12px 18px; border-radius:10px; color:white; font-weight:700; border:none; cursor:pointer; }
-    .submit-btn:hover{ transform: translateY(-3px); box-shadow:0 18px 50px rgba(225,29,72,0.12); }
-
-    /* floating CTA */
-    .fab{ position:fixed; right:20px; bottom:20px; display:flex; flex-direction:column; gap:12px; z-index:80; }
-    .fab a{ display:inline-flex; gap:10px; align-items:center; padding:12px 14px; border-radius:999px; color:white; font-weight:700; text-decoration:none; box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
-    .fab .wa{ background: linear-gradient(135deg,#25D366,#128C7E); }
-    .fab .call{ background: linear-gradient(135deg,#ff7b7b,#e65c5c); }
-
-    /* footer */
-    footer.site-footer{ padding:32px 0; text-align:center; color:#a7b5c3; border-top:1px solid rgba(255,255,255,0.02); margin-top:40px; }
-
-    /* animations - reveal */
-    .reveal{ opacity:0; transform: translateY(16px); transition: all .7s cubic-bezier(.2,.9,.3,1); will-change:transform,opacity; }
-    .reveal.visible{ opacity:1; transform: translateY(0); }
-
-    /* responsiveness */
-    @media (max-width: 960px){
-      .hero-right{ display:none; }
-      .contact-grid{ grid-template-columns: 1fr; }
-      .founder-card{ width:100%; }
-      .nav-inner{ padding:10px; gap:8px; }
+    .glass-card-interactive:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(225, 29, 72, 0.4);
+      box-shadow: 0 30px 60px rgba(225, 29, 72, 0.15), 0 0 40px rgba(225, 29, 72, 0.1);
     }
-    @media (max-width:520px){
-      .hero-title{ font-size:28px; }
-      .brand h1{ font-size:14px; }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #e11d48 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-neon {
+      background: linear-gradient(135deg, #ffffff 0%, #fb7185 40%, #ff2a55 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid-matrix {
+      background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .aurora-bg {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      pointer-events: none;
+      z-index: -10;
     }
   </style>
 </head>
-<body>
+<body class="relative min-h-screen selection:bg-brand selection:text-white">
 
-  <!-- NAV -->
-  <header class="site-header">
-    <div class="nav-inner container">
-      <div class="brand">
-        <div class="logo">PCL</div>
-        <div>
-          <h1>People Choose Leader</h1>
-          <div style="font-size:12px;color:var(--muted);margin-top:2px">Political Planning Committee</div>
+  <!-- 2026 AURORA & NEON GRID MATRIX BACKGROUND -->
+  <div class="aurora-bg top-[-10%] left-[-10%] w-[600px] h-[600px] bg-rose-600/15 animate-aurora"></div>
+  <div class="aurora-bg top-[30%] right-[-10%] w-[700px] h-[700px] bg-brand/10 animate-pulse-glow"></div>
+  <div class="aurora-bg bottom-[-10%] left-[20%] w-[800px] h-[800px] bg-rose-900/10"></div>
+  <div class="fixed inset-0 grid-matrix opacity-30 pointer-events-none -z-10"></div>
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-50 pt-5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto glass-nav rounded-2xl px-6 py-4 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#home" class="flex items-center gap-3.5 group">
+        <div class="relative">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand via-brand-hover to-brand-dark flex items-center justify-center text-white font-display font-bold text-xl shadow-lg shadow-brand/30 group-hover:scale-105 transition-transform duration-300">
+            PCL
+          </div>
+          <div class="absolute inset-0 rounded-xl bg-brand blur-md opacity-40 group-hover:opacity-80 transition-opacity -z-10"></div>
         </div>
-      </div>
+        <div>
+          <span class="font-display font-bold text-white text-lg tracking-tight block leading-none">People Choose Leader</span>
+          <span class="text-[10px] text-brand-hover font-semibold tracking-widest uppercase block mt-1">Political Planning Committee</span>
+        </div>
+      </a>
 
-      <nav class="top-nav" aria-label="Main Navigation">
-        <a href="#home">Home</a>
-        <a href="#founder">Founder</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#proposal">Proposal</a>
-        <a href="#contact">Contact</a>
+      <!-- Desktop Links -->
+      <nav class="hidden lg:flex items-center gap-9">
+        <a href="#home" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Home</a>
+        <a href="#founder" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors">Founder</a>
+        <a href="#about" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors">About Us</a>
+        <a href="#services" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors">Services</a>
+        <a href="#ai-engine" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors">AI Engine</a>
+        <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand to-brand-hover text-white text-sm font-bold shadow-lg shadow-brand/25 hover:shadow-brand/40 transition-all hover:scale-105">Get Started</a>
       </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuBtn" class="lg:hidden text-slate-300 hover:text-white text-2xl p-2 focus:outline-none">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNav" class="hidden lg:hidden max-w-7xl mx-auto mt-3 glass-nav rounded-2xl p-6 flex-col gap-4 shadow-2xl">
+      <a href="#home" class="mobile-link text-slate-200 hover:text-brand font-semibold py-2">Home</a>
+      <a href="#founder" class="mobile-link text-slate-200 hover:text-brand font-semibold py-2">Founder</a>
+      <a href="#about" class="mobile-link text-slate-200 hover:text-brand font-semibold py-2">About Us</a>
+      <a href="#services" class="mobile-link text-slate-200 hover:text-brand font-semibold py-2">Services</a>
+      <a href="#ai-engine" class="mobile-link text-slate-200 hover:text-brand font-semibold py-2">AI Engine</a>
+      <a href="#contact" class="mobile-link text-center px-4 py-3 rounded-xl bg-brand text-white font-bold mt-2">Get Started</a>
     </div>
   </header>
 
-  <!-- HERO -->
-  <main class="hero">
-    <div class="container" style="display:flex; gap:28px; align-items:center;">
-      <div class="hero-left">
-        <div class="eyebrow">Professional Political Consulting</div>
-        <h2 class="hero-title">Empowering People to Choose Better Leaders</h2>
-        <p class="hero-sub">Modern political planning, community outreach and leader branding — modern strategies for real results. Data-driven political planning, community outreach and leader branding — modern strategies for real results.</p>
+  <main>
+    <!-- HERO SECTION -->
+    <section id="home" class="pt-40 pb-24 px-4 sm:px-8 min-h-screen flex items-center">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+        
+        <!-- Left Content -->
+        <div class="lg:col-span-7 space-y-8">
+          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-brand/10 border border-brand/25 text-brand-glow text-xs font-bold tracking-wider uppercase backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-brand animate-ping"></span>
+            2026 AI Political Intelligence Platform
+          </div>
 
-        <div class="hero-cta">
-          <a class="btn-primary" href="#services">Explore Services</a>
-          <a class="btn-outline" href="#contact">Get A Free Consultation</a>
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold text-white tracking-tight leading-[1.08]">
+            Empowering People to Choose <span class="text-gradient-neon">Better Leaders</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-300 leading-relaxed font-normal max-w-2xl">
+            Modern political planning, community outreach and leader branding — modern strategies for real results. Data-driven political planning, community outreach and leader branding — modern strategies for real results.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-5 pt-2">
+            <a href="#services" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-brand to-brand-hover text-white font-bold text-base shadow-2xl shadow-brand/35 hover:shadow-brand/50 transition-all hover:-translate-y-1 flex items-center gap-3">
+              <span>Explore Services</span>
+              <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+            <a href="#contact" class="px-8 py-4 rounded-2xl glass-card hover:bg-white/10 text-slate-200 font-bold text-base border border-white/10 transition-all hover:-translate-y-1">
+              Get A Free Consultation
+            </a>
+          </div>
+
+          <!-- Quick Metrics & Contacts -->
+          <div class="pt-8 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-300">
+            <a href="tel:9553257281" class="glass-card p-3.5 rounded-xl flex items-center gap-3 hover:border-brand/40 transition-colors">
+              <div class="w-9 h-9 rounded-lg bg-brand/15 border border-brand/30 flex items-center justify-center text-brand">
+                <i class="fa-solid fa-phone text-sm"></i>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-400 block font-semibold uppercase">Direct Hotline</span>
+                <span class="font-bold text-white text-base">+91 95532 57281</span>
+              </div>
+            </a>
+
+            <a href="mailto:peoplechooseleaderppc@gmail.com" class="glass-card p-3.5 rounded-xl flex items-center gap-3 hover:border-brand/40 transition-colors">
+              <div class="w-9 h-9 rounded-lg bg-brand/15 border border-brand/30 flex items-center justify-center text-brand">
+                <i class="fa-solid fa-paper-plane text-sm"></i>
+              </div>
+              <div class="truncate">
+                <span class="text-[10px] text-slate-400 block font-semibold uppercase">Committee Email</span>
+                <span class="font-bold text-white text-sm truncate block">peoplechooseleaderppc@gmail.com</span>
+              </div>
+            </a>
+          </div>
         </div>
 
-        <div style="margin-top:18px; color: #d7e3ef;">📞 <strong style="color:white">+91 95532 57281</strong> &nbsp; • &nbsp; 📧 peoplechooseleaderppc@gmail.com</div>
-      </div>
+        <!-- Right 3D Spatial Founder Card -->
+        <div class="lg:col-span-5 relative">
+          <div class="glass-card glass-card-interactive p-8 sm:p-10 rounded-3xl relative overflow-hidden group">
+            <div class="absolute -right-16 -top-16 w-56 h-56 bg-brand/20 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="hero-right">
-        <div class="founder-card reveal" id="founderCard">
-          <img src="founder.jpg" alt="Founder - Kalyan Chakravarthi Reddy" class="founder-photo" onerror="this.style.display='none'">
-          <div class="founder-meta">
-            <h3>Kalyan Chakravarthi Reddy</h3>
-            <p>Founder — People Choose Leader</p>
-            <div style="margin-top:8px;"><a href="#contact" class="btn-primary" style="padding:8px 12px;font-size:13px">Contact Founder</a></div>
+            <div class="flex items-center justify-between mb-8">
+              <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-brand via-brand-hover to-rose-400 flex items-center justify-center text-white font-display font-extrabold text-3xl shadow-xl shadow-brand/30">
+                KCR
+              </div>
+              <span class="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-semibold uppercase tracking-wider">
+                Founder Identity
+              </span>
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="text-3xl font-display font-bold text-white">Kalyan Chakravarthi Reddy</h3>
+              <p class="text-brand-hover font-semibold text-base">Founder — People Choose Leader</p>
+            </div>
+
+            <p class="mt-5 text-slate-300 leading-relaxed text-sm">
+              Architecting data-driven political strategies, voter sentiment intelligence networks, and modern community transformation systems.
+            </p>
+
+            <div class="mt-8 pt-6 border-t border-white/10">
+              <a href="#contact" class="w-full py-4 rounded-xl bg-white/5 hover:bg-brand text-white font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 border border-white/10">
+                <span>Contact Founder</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </section>
 
-  <!-- FOUNDER INTRO (preserve exact text) -->
-  <section id="founder" class="site-section">
-    <div class="container">
-      <div class="card content-white reveal">
-        <h3 class="text-2xl font-bold" style="color:white">Founder Introduction</h3>
-        <div style="margin-top:14px;">
-          <p><strong>Kalyan Chakravarthi Reddy</strong> is the visionary behind the <strong>People Choose Leader – Political Planning Committee</strong>. Born with a deep understanding of people’s struggles, he believes that true political change begins with listening to citizens and building systems that uplift communities.</p>
+    <!-- FOUNDER INTRODUCTION -->
+    <section id="founder" class="py-24 px-4 sm:px-8 relative">
+      <div class="max-w-5xl mx-auto">
+        <div class="glass-card p-9 sm:p-14 rounded-3xl relative overflow-hidden space-y-8 border-l-4 border-l-brand">
+          
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-user-gear text-brand"></i> Founder Introduction
+          </div>
 
-          <p style="margin-top:12px;">His mission is simple yet powerful: <span style="font-weight:700;color:var(--brand)">to create a political support system that removes poverty, empowers every individual, and builds a future where leadership is chosen by the people, for the people.</span></p>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            The Vision & Mission Behind the Movement
+          </h2>
 
-          <p style="margin-top:12px;">Kalyan’s work focuses on transforming political strategy into a tool that drives development. He strongly believes that India can grow only when every village grows, every youth gets opportunity, and every family receives dignity.</p>
+          <div class="space-y-5 text-slate-300 leading-relaxed text-base sm:text-lg">
+            <p>
+              <strong class="text-white font-semibold">Kalyan Chakravarthi Reddy</strong> is the visionary behind the <strong class="text-white font-semibold">People Choose Leader – Political Planning Committee</strong>. Born with a deep understanding of people’s struggles, he believes that true political change begins with listening to citizens and building systems that uplift communities.
+            </p>
+            <div class="p-6 rounded-2xl bg-gradient-to-r from-brand/20 via-brand/10 to-transparent border border-brand/30 text-white font-medium shadow-inner">
+              His mission is simple yet powerful: <span class="text-brand-hover font-bold">to create a political support system that removes poverty, empowers every individual, and builds a future where leadership is chosen by the people, for the people.</span>
+            </div>
+            <p>
+              Kalyan’s work focuses on transforming political strategy into a tool that drives development. He strongly believes that India can grow only when every village grows, every youth gets opportunity, and every family receives dignity.
+            </p>
+            <p>
+              Through innovative ideas, data-driven planning, and heartfelt commitment, he aims to redefine how politics serves society. His vision is to build a movement that inspires millions—where leadership is honest, governance is transparent, and development reaches every doorstep.
+            </p>
+          </div>
 
-          <p style="margin-top:12px;">Through innovative ideas, data-driven planning, and heartfelt commitment, he aims to redefine how politics serves society. His vision is to build a movement that inspires millions—where leadership is honest, governance is transparent, and development reaches every doorstep.</p>
-
-          <p style="margin-top:12px;font-weight:800;color:#7cc0ff">“We don’t just plan political success. We plan a new India—one without hunger, one without fear, and one where every person has hope.”</p>
+          <div class="pt-6 border-t border-white/10">
+            <blockquote class="text-xl sm:text-2xl font-display font-bold text-rose-300 italic">
+              “We don’t just plan political success. We plan a new India—one without hunger, one without fear, and one where every person has hope.”
+            </blockquote>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="site-section">
-    <div class="container">
-      <div class="card reveal">
-        <h3 class="text-2xl font-bold" style="color:white">About Us</h3>
-        <div style="margin-top:14px;" class="content-white">
-          <p style="font-size:18px; font-weight:700; color:var(--brand)">We are not just a team — we are the minds behind movements.</p>
-          <p style="margin-top:12px;">Our Political Planning and Media Strategy Committee is built on a powerful foundation of research, communication, digital expertise, and ground-level insight.</p>
+    <!-- RECREATED MODERN ABOUT US -->
+    <section id="about" class="py-24 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto space-y-16">
+        
+        <div class="text-center max-w-3xl mx-auto space-y-4">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-brand-glow text-xs font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-brain"></i> Strategic Intelligence Architecture
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            We Are Not Just a Team — We Are the <span class="text-gradient-neon">Minds Behind Movements</span>
+          </h2>
+          <p class="text-slate-400 text-base sm:text-lg">
+            Our Political Planning and Media Strategy Committee is built on a powerful foundation of research, communication, digital expertise, and ground-level insight.
+          </p>
+        </div>
 
-          <ul style="margin-top:14px; list-style:none; padding:0;">
-            <li style="margin-bottom:10px; color:#cfe6ff">📌 <strong>We Listen to the People.</strong> Every campaign we build starts with public voice and voter mood.</li>
-            <li style="margin-bottom:10px; color:#cfe6ff">📌 <strong>We Think Like Voters. Act Like Leaders.</strong> Our unique approach blends political wisdom with modern digital tools.</li>
-            <li style="margin-bottom:10px; color:#cfe6ff">📌 <strong>We Mix Strategy with Emotion.</strong> People vote with their hearts — and we connect with them.</li>
-            <li style="margin-bottom:10px; color:#cfe6ff">📌 "Votes don't fall from the sky. We go village to village, heart to heart."</li>
-            <li style="margin-bottom:10px; color:#cfe6ff">📌 "From rural roots to digital screens — we carry your vision to every voter."</li>
-            <li style="margin-bottom:10px; color:#cfe6ff">📌 "From ground to government — we map your mission."</li>
-            <li style="margin-bottom:10px; color:#cfe6ff">📌 "Elections are not about noise — they're about precision. We deliver that precision."</li>
-          </ul>
+        <!-- 3 Pillars Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-brand/15 border border-brand/30 flex items-center justify-center text-brand text-2xl shadow-lg">
+              <i class="fa-solid fa-ear-listen"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">We Listen to the People</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Every campaign we build starts with public voice, ground sentiment monitoring, and authentic voter mood diagnostics.
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-brand/15 border border-brand/30 flex items-center justify-center text-brand text-2xl shadow-lg">
+              <i class="fa-solid fa-chess"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Think Like Voters. Act Like Leaders.</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Our unique approach blends political wisdom, ground reality, and modern digital campaign infrastructure.
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-brand/15 border border-brand/30 flex items-center justify-center text-brand text-2xl shadow-lg">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Strategy Meets Emotion</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              People vote with their hearts — and we connect with them through authentic narrative storytelling.
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 Philosophy Highlights -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="glass-card p-6 rounded-2xl space-y-3 border-l-2 border-l-brand">
+            <span class="text-brand font-display font-bold text-lg">01</span>
+            <p class="text-sm text-slate-200 font-medium">"Votes don't fall from the sky. We go village to village, heart to heart."</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl space-y-3 border-l-2 border-l-brand">
+            <span class="text-brand font-display font-bold text-lg">02</span>
+            <p class="text-sm text-slate-200 font-medium">"From rural roots to digital screens — we carry your vision to every voter."</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl space-y-3 border-l-2 border-l-brand">
+            <span class="text-brand font-display font-bold text-lg">03</span>
+            <p class="text-sm text-slate-200 font-medium">"From ground to government — we map your mission."</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl space-y-3 border-l-2 border-l-brand">
+            <span class="text-brand font-display font-bold text-lg">04</span>
+            <p class="text-sm text-slate-200 font-medium">"Elections are not about noise — they're about precision. We deliver that precision."</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="site-section">
-    <div class="container">
-      <div class="flex items-center justify-between">
-        <h3 class="text-2xl font-bold" style="color:white">Our Core Services</h3>
-        <a href="#proposal" class="btn-outline" style="color:#cfe6ff">Request a custom proposal →</a>
+    <!-- CORE SERVICES SECTION -->
+    <section id="services" class="py-24 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto space-y-16">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div class="space-y-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-bold uppercase tracking-wider">
+              <i class="fa-solid fa-cubes text-brand"></i> Tactical Capabilities
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">Our Core Services</h2>
+          </div>
+          <a href="#proposal" class="inline-flex items-center gap-2 text-sm font-bold text-brand hover:text-brand-hover transition-colors">
+            <span>Request a custom proposal</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-brand text-2xl">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Booth-Level Micro Planning</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Detailed voter profiling, demographic mapping, and ground-level influence analysis down to individual polling booths.
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-brand text-2xl">
+              <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Constituency Issue Mapping</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Identify critical development gaps, localized voter expectations, and strategic priority zones for targeted campaigns.
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-brand text-2xl">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Political Data Intelligence</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Social media trends, public sentiment tracking, narrative monitoring, and data intelligence frameworks.
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-brand text-2xl">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">War Room Setup</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Real-time data feeds, volunteer coordination, field reporting, rapid response, and fast decision support.
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-brand text-2xl">
+              <i class="fa-solid fa-bullhorn"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Digital & Media Strategy</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Content planning, influencer outreach, targeted video campaigns, and high-impact online promotion.
+            </p>
+          </div>
+
+          <div class="glass-card glass-card-interactive p-8 rounded-3xl space-y-5">
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-brand text-2xl">
+              <i class="fa-solid fa-id-card"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white">Leader Branding & Communications</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Message crafting, media relations strategy, public image development, and leadership branding.
+            </p>
+          </div>
+
+        </div>
       </div>
+    </section>
 
-      <div style="margin-top:18px;" class="services-grid">
-        <div class="service-card reveal">
-          <h4>Booth-Level Micro Planning</h4>
-          <p>Detailed voter profiling, demographic mapping, and ground-level influence analysis.</p>
+    <!-- 2026 AI STRATEGY ENGINE SIMULATOR -->
+    <section id="ai-engine" class="py-24 px-4 sm:px-8 border-y border-white/10 bg-slate-950/60">
+      <div class="max-w-7xl mx-auto space-y-12">
+        <div class="text-center max-w-3xl mx-auto space-y-4">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand/10 border border-brand/30 text-brand-glow text-xs font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Live AI Campaign Simulator
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            Select Your <span class="text-gradient-neon">Campaign Scope</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base">
+            Click on any service module below to generate real-time strategic deliverables and implementation timelines.
+          </p>
         </div>
 
-        <div class="service-card reveal">
-          <h4>Constituency Issue Mapping</h4>
-          <p>Identify critical development gaps and voter expectations for targeted campaigns.</p>
+        <!-- Interactive Module Selector -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <button onclick="selectEngineModule('booth')" id="btn-booth" class="engine-btn p-5 rounded-2xl glass-card text-center font-bold text-sm text-slate-200 border-brand hover:border-brand transition-all">
+            <i class="fa-solid fa-map-location-dot text-brand text-2xl block mb-2"></i>
+            Booth Micro-Plan
+          </button>
+          <button onclick="selectEngineModule('warroom')" id="btn-warroom" class="engine-btn p-5 rounded-2xl glass-card text-center font-bold text-sm text-slate-200 hover:border-brand transition-all">
+            <i class="fa-solid fa-headset text-slate-400 text-2xl block mb-2"></i>
+            War Room Setup
+          </button>
+          <button onclick="selectEngineModule('digital')" id="btn-digital" class="engine-btn p-5 rounded-2xl glass-card text-center font-bold text-sm text-slate-200 hover:border-brand transition-all">
+            <i class="fa-solid fa-bullhorn text-slate-400 text-2xl block mb-2"></i>
+            Digital Strategy
+          </button>
+          <button onclick="selectEngineModule('branding')" id="btn-branding" class="engine-btn p-5 rounded-2xl glass-card text-center font-bold text-sm text-slate-200 hover:border-brand transition-all">
+            <i class="fa-solid fa-id-card text-slate-400 text-2xl block mb-2"></i>
+            Leader Branding
+          </button>
         </div>
 
-        <div class="service-card reveal">
-          <h4>Political Data Intelligence</h4>
-          <p>Social media trends, public sentiment tracking, and narrative monitoring.</p>
-        </div>
+        <!-- Simulator Dynamic Display -->
+        <div class="glass-card p-8 sm:p-10 rounded-3xl space-y-6" id="engine-display">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-brand-hover block mb-1">Selected Module</span>
+              <h3 id="engine-title" class="text-2xl font-display font-bold text-white">Booth-Level Micro Planning</h3>
+            </div>
+            <div class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold text-slate-300">
+              Estimated Timeline: <span id="engine-time" class="text-white font-bold">14 Days</span>
+            </div>
+          </div>
 
-        <div class="service-card reveal">
-          <h4>War Room Setup</h4>
-          <p>Real-time data, volunteer coordination, reporting, and fast decision support.</p>
-        </div>
-
-        <div class="service-card reveal">
-          <h4>Digital & Media Strategy</h4>
-          <p>Content planning, influencer outreach, video campaigns, and online promotion.</p>
-        </div>
-
-        <div class="service-card reveal">
-          <h4>Leader Branding & Communications</h4>
-          <p>Message crafting, media relations, and public image strategy.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+            <div class="space-y-3">
+              <h4 class="font-bold text-white uppercase tracking-wider text-xs">Core Strategic Deliverables</h4>
+              <ul id="engine-deliverables" class="space-y-2 text-slate-300">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand text-xs"></i> 100% Voter Sentiment & Key Issue Mapping</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand text-xs"></i> Micro-Influencer Identification per Booth</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand text-xs"></i> Opposition Caste & Demographic Breakdown</li>
+              </ul>
+            </div>
+            <div class="space-y-3">
+              <h4 class="font-bold text-white uppercase tracking-wider text-xs">Target Metrics</h4>
+              <p id="engine-metrics" class="text-slate-400 leading-relaxed">
+                Reaches over 85% of registered constituency voters through hyper-localized volunteer assignments and booth committees.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- GALLERY -->
-  <section class="site-section">
-    <div class="container">
-      <h3 class="text-2xl font-bold" style="color:white">Gallery</h3>
-
-      <div class="carousel" style="margin-top:14px;">
-        <!-- JS will populate gallery cards -->
-      </div>
-
-      <div class="scroll-strip reveal" style="margin-top:18px;">
-        <div class="strip-inner" id="strip-inner">
-          <!-- JS will populate strip images -->
+    <!-- PROPOSAL DOWNLOAD SECTION -->
+    <section id="proposal" class="py-20 px-4 sm:px-8">
+      <div class="max-w-5xl mx-auto">
+        <div class="glass-card p-8 sm:p-12 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8 bg-gradient-to-r from-brand/15 via-slate-950 to-slate-950 border border-brand/30">
+          <div class="space-y-3 text-center md:text-left">
+            <h3 class="text-3xl font-display font-extrabold text-white">Download Proposal PDF</h3>
+            <p class="text-slate-300 text-sm max-w-xl">
+              A concise proposal with services, timelines, and estimated costs. Ready to share with your leadership team.
+            </p>
+          </div>
+          <button id="downloadBtn" class="px-8 py-4 rounded-2xl bg-brand hover:bg-brand-hover text-white font-bold text-sm shadow-2xl shadow-brand/30 hover:shadow-brand/50 transition-all flex items-center gap-3 whitespace-nowrap">
+            <i class="fa-solid fa-file-pdf text-lg"></i>
+            <span>Download Proposal PDF</span>
+          </button>
         </div>
       </div>
-      <p style="color: #9fb7d6; margin-top:12px; font-size:13px;">Swipe the gallery horizontally on mobile. Images auto-scroll below for quick preview.</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- PROPOSAL CTA -->
-  <section id="proposal" class="site-section">
-    <div class="container">
-      <div class="card reveal" style="display:flex; align-items:center; justify-content:space-between;">
-        <div>
-          <h3 class="text-2xl font-bold" style="color:white">Download Proposal</h3>
-          <p style="color:#cfe6ff; margin-top:8px;">A concise proposal with services, timelines and estimated costs. Ready to share with your team.</p>
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 px-4 sm:px-8">
+      <div class="max-w-7xl mx-auto space-y-16">
+        
+        <div class="space-y-4">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-bold uppercase tracking-wider">
+            <i class="fa-solid fa-paper-plane text-brand"></i> Connect With Us
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">Contact</h2>
         </div>
-        <div>
-          <a download href="proposal.pdf" class="btn-primary">Download Proposal PDF</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="site-section">
-    <div class="container">
-      <h3 class="text-2xl font-bold" style="color:white">Contact</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          <!-- Contact Info -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="glass-card p-8 sm:p-10 rounded-3xl space-y-6">
+              <h3 class="text-2xl font-bold text-white">Get In Touch</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                Share your project details and we'll respond within one business day.
+              </p>
 
-      <div style="margin-top:18px;" class="contact-grid">
-        <div class="reveal">
-          <div class="card">
-            <h4 style="color:white">Get In Touch</h4>
-            <p style="color:#cfe6ff; margin-top:10px;">Share your project details and we'll respond within one business day.</p>
+              <div class="space-y-5 pt-4 border-t border-white/10 text-sm">
+                <div>
+                  <span class="text-slate-400 block text-xs uppercase tracking-wider mb-1 font-semibold">Name</span>
+                  <span class="text-white font-bold text-lg">Kalyan Chakravarthi Reddy</span>
+                </div>
 
-            <div style="margin-top:18px;">
-              <p style="color:#d7e3ef"><strong>Name:</strong> Kalyan Chakravarthi Reddy</p>
-              <p style="color:#d7e3ef; margin-top:8px;"><strong>Phone:</strong> <span style="color:var(--brand); font-weight:800">9553257281 / 6363651811</span></p>
-              <p style="color:#d7e3ef; margin-top:8px;"><strong>Email:</strong> peoplechooseleaderppc@gmail.com</p>
-              <p style="color:#d7e3ef; margin-top:8px;"><strong>Office Location:</strong> ABM A.H School, Komarolu, Komarolu Mandalam, Giddalur, Prakasam District, Andhra Pradesh – 523373</p>
+                <div>
+                  <span class="text-slate-400 block text-xs uppercase tracking-wider mb-1 font-semibold">Phone</span>
+                  <div class="flex flex-col gap-1">
+                    <a href="tel:9553257281" class="text-brand-hover hover:underline font-bold text-lg">+91 95532 57281</a>
+                    <a href="tel:6363651811" class="text-brand-hover hover:underline font-bold text-lg">+91 63636 51811</a>
+                  </div>
+                </div>
 
-              <div style="margin-top:14px; display:flex; gap:10px;">
-                <a class="wa" href="https://wa.me/9553257281" target="_blank" style="padding:10px 14px; border-radius:10px; color:white; text-decoration:none; display:inline-block;">💬 WhatsApp</a>
-                <a class="call" href="tel:9553257281" style="padding:10px 14px; border-radius:10px; color:white; text-decoration:none; display:inline-block;">📞 Call Now</a>
+                <div>
+                  <span class="text-slate-400 block text-xs uppercase tracking-wider mb-1 font-semibold">Email</span>
+                  <a href="mailto:peoplechooseleaderppc@gmail.com" class="text-slate-200 hover:text-white font-medium">peoplechooseleaderppc@gmail.com</a>
+                </div>
+
+                <div>
+                  <span class="text-slate-400 block text-xs uppercase tracking-wider mb-1 font-semibold">Office Location</span>
+                  <p class="text-slate-300 leading-relaxed">
+                    ABM A.H School, Komarolu, Komarolu Mandalam, Giddalur, Prakasam District, Andhra Pradesh – 523373
+                  </p>
+                </div>
+              </div>
+
+              <!-- Quick Buttons -->
+              <div class="pt-4 flex items-center gap-4">
+                <a href="https://wa.me/9553257281" target="_blank" class="flex-1 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-lg">
+                  <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp
+                </a>
+                <a href="tel:9553257281" class="flex-1 py-3.5 rounded-xl bg-brand hover:bg-brand-hover text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-lg shadow-brand/20">
+                  <i class="fa-solid fa-phone text-xs"></i> Call Now
+                </a>
               </div>
             </div>
           </div>
+
+          <!-- Contact Form -->
+          <div class="lg:col-span-7">
+            <form id="contactForm" class="glass-card p-8 sm:p-10 rounded-3xl space-y-6" action="https://formspree.io/f/FORMSPREE_ENDPOINT" method="POST">
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label class="text-xs font-semibold uppercase tracking-wider text-slate-300">Your Name</label>
+                  <input type="text" name="name" required placeholder="Full name" class="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand transition-colors text-sm">
+                </div>
+                <div class="space-y-2">
+                  <label class="text-xs font-semibold uppercase tracking-wider text-slate-300">Phone</label>
+                  <input type="tel" name="phone" required placeholder="+91 9xxxxxxxxx" class="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand transition-colors text-sm">
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-xs font-semibold uppercase tracking-wider text-slate-300">Email</label>
+                <input type="email" name="_replyto" placeholder="you@example.com" class="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand transition-colors text-sm">
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-xs font-semibold uppercase tracking-wider text-slate-300">Message</label>
+                <textarea name="message" rows="5" required placeholder="Tell us about your project..." class="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-brand transition-colors text-sm resize-none"></textarea>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand hover:bg-brand-hover text-white font-bold text-sm shadow-xl shadow-brand/25 transition-all">
+                  Send Message
+                </button>
+                <button type="button" id="emailFallback" class="w-full sm:w-auto px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold text-sm border border-white/10 transition-colors">
+                  Email Instead
+                </button>
+              </div>
+
+              <div id="formMsg" class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium">
+                Thanks — your message was sent.
+              </div>
+            </form>
+          </div>
+
         </div>
 
-        <div class="reveal">
-          <form id="contactForm" class="card" action="https://formspree.io/f/FORMSPREE_ENDPOINT" method="POST">
-            <label class="block" style="color:#cfe6ff; font-weight:700;">Your Name</label>
-            <input name="name" class="input" placeholder="Full name" required>
-
-            <label class="block" style="color:#cfe6ff; font-weight:700; margin-top:8px;">Phone</label>
-            <input name="phone" class="input" placeholder="+91 9xxxxxxxxx" required>
-
-            <label class="block" style="color:#cfe6ff; font-weight:700; margin-top:8px;">Email</label>
-            <input name="_replyto" type="email" class="input" placeholder="you@example.com">
-
-            <label class="block" style="color:#cfe6ff; font-weight:700; margin-top:8px;">Message</label>
-            <textarea name="message" rows="5" class="input" placeholder="Tell us about your project..." required></textarea>
-
-            <div style="display:flex; gap:10px; margin-top:12px;">
-              <button type="submit" class="submit-btn">Send Message</button>
-              <button type="button" id="emailFallback" class="submit-btn" style="background:#111; border:1px solid rgba(255,255,255,0.04);">Email Instead</button>
-            </div>
-
-            <div id="formMsg" style="color:#9fe4b8; margin-top:10px; display:none;">Thanks — your message was sent.</div>
-          </form>
+        <!-- Google Maps Embed Card -->
+        <div class="glass-card p-4 rounded-3xl overflow-hidden border border-white/10">
+          <iframe 
+            class="w-full h-80 rounded-2xl border-0 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500" 
+            loading="lazy" 
+            src="https://www.google.com/maps?q=ABM%20A.H%20School%2C%20Komarolu%2C%20Prakasam%20District%2C%20Andhra%20Pradesh&output=embed">
+          </iframe>
         </div>
       </div>
-
-      <!-- MAP -->
-      <div style="margin-top:20px;" class="card reveal">
-        <iframe class="w-full" style="width:100%; height:340px; border-radius:10px; border:0;" loading="lazy"
-          src="https://www.google.com/maps?q=ABM%20A.H%20School%2C%20Komarolu%2C%20Prakasam%20District%2C%20Andhra%20Pradesh&output=embed"></iframe>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <div style="font-weight:700; color:#fff">People Choose Leader</div>
-      <div style="margin-top:8px; color:#9fb7d6">Political planning, campaign strategy & leader branding.</div>
-      <div style="margin-top:12px; color:#7f98b0">© 2025 People Choose Leader – Political Planning Committee</div>
-    </div><!-- Professional Social Media Icons -->
-<div style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    padding: 25px 0;
-">
+  <footer class="py-16 px-4 sm:px-8 border-t border-white/10 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto flex flex-col items-center justify-between gap-8 text-center">
+      
+      <div class="space-y-2">
+        <h4 class="text-2xl font-display font-bold text-white tracking-tight">People Choose Leader</h4>
+        <p class="text-sm text-slate-400">Political planning, campaign strategy & leader branding.</p>
+      </div>
 
-    <!-- Facebook -->
-    <a href="https://facebook.com/yourpage" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
-             style="width:40px; height:40px;" alt="Facebook">
-    </a>
+      <!-- Social Links -->
+      <div class="flex items-center gap-6">
+        <a href="https://facebook.com" target="_blank" class="w-12 h-12 rounded-2xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand hover:border-brand transition-all">
+          <i class="fa-brands fa-facebook-f text-lg"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="w-12 h-12 rounded-2xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand hover:border-brand transition-all">
+          <i class="fa-brands fa-instagram text-lg"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" class="w-12 h-12 rounded-2xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand hover:border-brand transition-all">
+          <i class="fa-brands fa-x-twitter text-lg"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" class="w-12 h-12 rounded-2xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:bg-brand hover:border-brand transition-all">
+          <i class="fa-brands fa-youtube text-lg"></i>
+        </a>
+      </div>
 
-    <!-- Instagram -->
-    <a href="https://instagram.com/yourpage" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg"
-             style="width:40px; height:40px;" alt="Instagram">
-    </a>
-
-    <!-- X (Twitter) -->
-    <a href="https://twitter.com/yourpage" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"
-             style="width:40px; height:40px;" alt="X">
-    </a>
-
-    <!-- YouTube (Square Icon — Visible) -->
-    <a href="https://youtube.com/yourpage" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png"
-             style="width:40px; height:40px;" alt="YouTube">
-    </a>
-
-</div>
-
-   
-
-
-
-
-
-
+      <p class="text-xs text-slate-500">
+        © 2025–2026 People Choose Leader – Political Planning Committee. All rights reserved.
+      </p>
+    </div>
   </footer>
 
-  <!-- Floating CTA -->
-  <div class="fab">
-    <a class="wa" href="https://wa.me/9553257281" target="_blank" style="display:inline-flex; align-items:center; justify-content:center;">💬 WhatsApp</a>
-    <a class="call" href="tel:9553257281" style="display:inline-flex; align-items:center; justify-content:center;">📞 Call Now</a>
+  <!-- FLOATING QUICK ACTION FAB -->
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
+    <a href="https://wa.me/9553257281" target="_blank" class="w-13 h-13 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-2xl shadow-emerald-500/30 hover:scale-110 transition-transform p-3">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <a href="tel:9553257281" class="w-13 h-13 rounded-full bg-brand text-white flex items-center justify-center text-xl shadow-2xl shadow-brand/30 hover:scale-110 transition-transform p-3">
+      <i class="fa-solid fa-phone"></i>
+    </a>
   </div>
 
-  <!-- SCRIPTS -->
+  <!-- JAVASCRIPT LOGIC -->
   <script>
-    /* ---------- Reveal on scroll (simple) ---------- */
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
+    // Mobile Drawer Navigation Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
 
-    reveals.forEach(r => obs.observe(r));
+    menuBtn.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+      mobileNav.classList.toggle('flex');
+    });
 
-    /* ---------- Gallery & strip images ---------- */
-    const galleryUrls = [
-      "https://i.ibb.co/d4DSwj4H/Whats-App-Image-2025-12-07-at-12-13-34-PM.jpg",
-      "https://i.ibb.co/q38B6sLt/Whats-App-Image-2025-12-07-at-12-13-33-PM-2.jpg",
-      "https://i.ibb.co/0j0kVyDN/Whats-App-Image-2025-12-07-at-12-13-33-PM-1.jpg",
-      "https://i.ibb.co/QFVXFHfX/Whats-App-Image-2025-12-07-at-12-13-33-PM.jpg",
-      "https://i.ibb.co/GfTJT4GW/Whats-App-Image-2025-12-07-at-12-13-32-PM-1.jpg",
-      "https://i.ibb.co/ccbvkjdd/Whats-App-Image-2025-12-07-at-12-13-32-PM.jpg"
-    ];
-
-    (function populateGallery(){
-      const carousel = document.querySelector('.carousel');
-      galleryUrls.forEach(url => {
-        const item = document.createElement('div');
-        item.className = 'item';
-        item.innerHTML = '<img src="'+url+'" alt="gallery"><div style="padding:12px;"><strong style="color:#fff">Community Outreach</strong><div style="color:#9fb7d6;margin-top:6px;font-size:13px">Meeting local leaders & voters.</div></div>';
-        carousel.appendChild(item);
-      });
-
-      // populate strip (duplicate for smooth)
-      const strip = document.getElementById('strip-inner');
-      const list = [...galleryUrls, ...galleryUrls];
-      list.forEach(u => {
-        const im = document.createElement('img');
-        im.src = u; im.alt = 'strip';
-        strip.appendChild(im);
-      });
-    })();
-
-    /* ---------- Contact form handler (Formspree fallback) ---------- */
-    (function(){
-      const form = document.getElementById('contactForm');
-      const formMsg = document.getElementById('formMsg');
-      const emailBtn = document.getElementById('emailFallback');
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const action = form.getAttribute('action');
-        if(action.includes('FORMSPREE_ENDPOINT')){
-          // fallback to mailto
-          return mailtoFallback();
-        }
-        try{
-          const data = new FormData(form);
-          const res = await fetch(form.action, { method: form.method, body: data, headers: { 'Accept':'application/json' }});
-          if(res.ok){
-            formMsg.style.display='block';
-            form.reset();
-            setTimeout(()=> formMsg.style.display='none', 4000);
-          } else { mailtoFallback(); }
-        } catch(err){ mailtoFallback(); }
-      });
-
-      function mailtoFallback(){
-        const name = form.querySelector('[name="name"]').value || 'No name';
-        const phone = form.querySelector('[name="phone"]').value || '';
-        const email = form.querySelector('[name="_replyto"]').value || '';
-        const message = form.querySelector('[name="message"]').value || '';
-        const subject = encodeURIComponent('Website Contact — ' + name);
-        const body = encodeURIComponent('Name: ' + name + '\\nPhone: ' + phone + '\\nEmail: ' + email + '\\n\\nMessage:\\n' + message);
-        window.location.href = 'mailto:peoplechooseleaderppc@gmail.com?subject=' + subject + '&body=' + body;
-      }
-
-      emailBtn.addEventListener('click', mailtoFallback);
-    })();
-
-    /* ---------- Mobile: gentle scroll to anchors ---------- */
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const id = a.getAttribute('href');
-        if(id.length > 1){
-          e.preventDefault();
-          document.querySelector(id).scrollIntoView({ behavior:'smooth', block:'start' });
-        }
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.add('hidden');
+        mobileNav.classList.remove('flex');
       });
     });
 
-    /* ---------- Small safety: if founder image missing, hide card ---------- */
-    const foundImg = document.querySelector('.founder-photo');
-    if(foundImg){
-      foundImg.addEventListener('error', ()=> {
-        const card = document.getElementById('founderCard');
-        if(card) card.style.display='none';
+    // AI Engine Simulator Modules Data
+    const engineData = {
+      booth: {
+        title: "Booth-Level Micro Planning",
+        time: "14 Days",
+        deliverables: [
+          "100% Voter Sentiment & Key Issue Mapping",
+          "Micro-Influencer Identification per Booth",
+          "Opposition & Demographic Breakdown Matrix"
+        ],
+        metrics: "Reaches over 85% of registered constituency voters through hyper-localized volunteer assignments and booth committees."
+      },
+      warroom: {
+        title: "24/7 Central War Room Setup",
+        time: "7 Days Setup",
+        deliverables: [
+          "Real-time Data Intelligence Dashboard",
+          "Rapid Response & Media Counter-Narratives",
+          "Volunteer Coordination & Field Reporting"
+        ],
+        metrics: "Provides 100% instant decision-making support with live feeds updated every 15 minutes."
+      },
+      digital: {
+        title: "Digital & Media Omnichannel Strategy",
+        time: "Ongoing Campaign",
+        deliverables: [
+          "Short-Form Video Production & Promotion",
+          "Targeted Influencer Network Outreach",
+          "WhatsApp Community & Viral Content Pipelines"
+        ],
+        metrics: "Generates over 500,000 localized digital impressions per constituency per month."
+      },
+      branding: {
+        title: "Leader Branding & Public Persona",
+        time: "30 Days Program",
+        deliverables: [
+          "Core Strategic Narrative & Speech Drafting",
+          "Media Relations & Press Release Framework",
+          "Public Image & Community Perception Building"
+        ],
+        metrics: "Increases positive candidate recall and trust scores by up to 40% across key demographic segments."
+      }
+    };
+
+    function selectEngineModule(key) {
+      const data = engineData[key];
+      document.getElementById('engine-title').innerText = data.title;
+      document.getElementById('engine-time').innerText = data.time;
+      document.getElementById('engine-metrics').innerText = data.metrics;
+
+      const delivEl = document.getElementById('engine-deliverables');
+      delivEl.innerHTML = data.deliverables.map(d => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand text-xs"></i> ${d}</li>`).join('');
+
+      // Update button highlights
+      document.querySelectorAll('.engine-btn').forEach(btn => {
+        btn.classList.remove('border-brand');
+        btn.querySelector('i').classList.replace('text-brand', 'text-slate-400');
       });
+
+      const activeBtn = document.getElementById(`btn-${key}`);
+      activeBtn.classList.add('border-brand');
+      activeBtn.querySelector('i').classList.replace('text-slate-400', 'text-brand');
     }
+
+    // Proposal Download Simulator
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      alert('Downloading Official Campaign Proposal PDF...');
+    });
+
+    // Form Handling & Fallbacks
+    const form = document.getElementById('contactForm');
+    const formMsg = document.getElementById('formMsg');
+    const emailBtn = document.getElementById('emailFallback');
+
+    function executeMailto() {
+      const name = form.querySelector('[name="name"]').value || 'No name provided';
+      const phone = form.querySelector('[name="phone"]').value || 'No phone provided';
+      const email = form.querySelector('[name="_replyto"]').value || 'No email provided';
+      const message = form.querySelector('[name="message"]').value || 'No message contents';
+
+      const subject = encodeURIComponent('Political Campaign Inquiry — ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\nPhone: ' + phone + '\nEmail: ' + email + '\n\nMessage:\n' + message);
+      window.location.href = 'mailto:peoplechooseleaderppc@gmail.com?subject=' + subject + '&body=' + body;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const action = form.getAttribute('action');
+
+      if (action.includes('FORMSPREE_ENDPOINT')) {
+        executeMailto();
+        return;
+      }
+
+      try {
+        const data = new FormData(form);
+        const res = await fetch(action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          formMsg.classList.remove('hidden');
+          form.reset();
+          setTimeout(() => formMsg.classList.add('hidden'), 5000);
+        } else {
+          executeMailto();
+        }
+      } catch (err) {
+        executeMailto();
+      }
+    });
+
+    emailBtn.addEventListener('click', executeMailto);
   </script>
 </body>
 </html>
-
-
